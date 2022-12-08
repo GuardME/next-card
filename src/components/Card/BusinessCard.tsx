@@ -1,16 +1,31 @@
-
+import { BusinessCard } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { FC } from 'react'
 
-interface CardProps {
-
+interface BusinessCardProps {
+  inputs?: {
+    title: string
+    website: string
+  }
+  card?: BusinessCard | null | undefined
 }
 
-const Card: FC<CardProps> = ({}) => {
+const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
+  /**
+   * Credit for this business card design to Joshua Ward
+   * https://codepen.io/joshuaward/pen/YMyPWr
+   */
 
   const { data: sessionData } = useSession()
 
-
+  const front = inputs &&
+      'http://localhost:3000/api/og' +
+        '?username=' +
+        sessionData?.user?.name +
+        '&title=' +
+        inputs.title +
+        '&imgSrc=' +
+        sessionData?.user?.image
 
   return (
     <div className='card'>
@@ -35,14 +50,14 @@ const Card: FC<CardProps> = ({}) => {
             {' '}
             <span className='property'>name</span>
             <span className='operator'>: </span>
-            <span className='string'>'Hello'</span>
+            <span className='string'>'{card ? card.name : sessionData?.user?.name}'</span>
             <span>,</span>
           </div>
           <div className='indent'>
             {' '}
             <span className='property'>title</span>
             <span className='operator'>: </span>
-            <span className='string'>'test'</span>
+            <span className='string'>'{card ? card.title : inputs?.title}'</span>
             <span>,</span>
           </div>
           <div className='indent'>
@@ -54,13 +69,13 @@ const Card: FC<CardProps> = ({}) => {
               {' '}
               <span className='property'>email</span>
               <span className='operator'>: </span>
-              <span className='string'>'test'</span>
+              <span className='string'>'{card ? card.email : sessionData?.user?.email}'</span>
               <span>,</span>
             </div>
             <div className='indent'>
               <span className='property'>website</span>
               <span className='operator'>:</span>
-              <span className='string'>'test'</span>
+              <span className='string'>'{card ? card.website : inputs?.website}'</span>
             </div>
             <span>{'}'}</span>
           </div>
@@ -68,11 +83,10 @@ const Card: FC<CardProps> = ({}) => {
         </code>
       </div>
       <div className='card-front'>
-        Hello
-        {/* <img className='h-[15rem] w-[30rem]' src={front} /> */}
+        <img className='h-[15rem] w-[30rem]' src={front} />
       </div>
     </div>
   )
 }
 
-export default Card
+export default BusinessCard
