@@ -18,6 +18,22 @@ model Example {
   updatedAt DateTime @updatedAt
 }
 
+model BusinessCard { 
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+
+  name      String
+  email     String
+  imgSrc    String
+  title     String
+  website   String
+  slug      String
+
+  @@unique([slug])
+}
+
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())

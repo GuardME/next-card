@@ -18,7 +18,15 @@ const BusinessCard: FC<BusinessCardProps> = ({ inputs, card }) => {
 
   const { data: sessionData } = useSession()
 
-  const front = inputs &&
+  const front = card
+    ? 'http://localhost:3000/api/og' +
+      '?username=' +
+      card.name +
+      '&title=' +
+      card.title +
+      '&imgSrc=' +
+      card.imgSrc
+    : inputs &&
       'http://localhost:3000/api/og' +
         '?username=' +
         sessionData?.user?.name +

@@ -1,3 +1,4 @@
+
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 
@@ -36,4 +37,4 @@ const isAuthed = t.middleware(({ ctx, next }) => {
 /**
  * Protected procedure
  **/
-export const protectedProcedure = t.procedure.use(isAuthed);
+export const privateProcedure = t.procedure.use(isAuthed);
