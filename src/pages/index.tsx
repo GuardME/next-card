@@ -4,6 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
+import Card from "../components/Card/Card";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -17,13 +18,22 @@ const Home: NextPage = () => {
       </Head>
       <div className='flex h-[calc(100vh-4rem)] flex-col items-center justify-center bg-gradient-to-br from-rose-500 to-purple-600'>
         {!sessionData && (
-          <button onClick={sessionData ? () => signOut() : () => signIn('google')} className="rounded-full bg-black/10 px-10 py-3 font-semibold text-black no-underline transition hover:bg-black/20">
+          <button onClick={sessionData ? () => signOut() : () => signIn('facebook')} className="rounded-full bg-black/10 px-10 py-3 font-semibold text-black no-underline transition hover:bg-black/20">
             Masuk dengan Facebook
           </button>
+        )}
+
+        {/* Card */}
+
+        {sessionData && (
+          <div className="flex flex-col items-center justify-center">
+            <Card/>
+          </div>
         )}
       </div>
     </>
   );
 };
 
-export default Hom
+export default Home;
+

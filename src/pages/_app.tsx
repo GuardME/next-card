@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
 
+import "../components/Card/Card.css"
 import "../styles/globals.css";
 import Navbar from "../components/shared/Navbar";
 
@@ -15,4 +16,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <Navbar/>
       <Component {...pageProps} />
-   
+    </SessionProvider>
+  );
+};
+
+export default trpc.withTRPC(MyApp);
