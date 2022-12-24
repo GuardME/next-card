@@ -39,7 +39,9 @@ const Home: NextPage = () => {
 
       <div className='flex h-[calc(100vh-4rem)] flex-col items-center justify-center bg-gradient-to-br from-slate-300 to-Zinc-300'>
         
-        <CardOnly />
+        {!sessionData && (
+          <CardOnly />
+        )}
         
         {!sessionData && (
           <button onClick={sessionData ? () => signOut() : () => signIn('google')} className="rounded-full bg-black/10 px-10 py-3 font-semibold text-black no-underline transition hover:bg-black/20 mt-5">
